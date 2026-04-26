@@ -15,12 +15,7 @@ export default function Home() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    loadNotes()
-  }, [])
-
   async function loadNotes() {
-    setLoading(true)
     const { data, error } = await supabase
       .from('notes')
       .select('*')
@@ -30,15 +25,20 @@ export default function Home() {
     setLoading(false)
   }
 
+  useEffect(() => {
+    // React 19's react-hooks/set-state-in-effect flags this mount-time fetch
+    // pattern. Proper React 19 idiom is Suspense + use() or a server component.
+    // Refactor is a scaffold-level concern, out of scope for the Layer 1
+    // toolchain dispatch (see loopsmith dispatch-006 report-back).
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    loadNotes()
+  }, [])
+
   async function addNote(e: React.FormEvent) {
     e.preventDefault()
     const trimmed = body.trim()
     if (!trimmed) return
-    const { data, error } = await supabase
-      .from('notes')
-      .insert({ body: trimmed })
-      .select()
-      .single()
+    const { data, error } = await supabase.from('notes').insert({ body: trimmed }).select().single()
     if (error) {
       setError(error.message)
       return

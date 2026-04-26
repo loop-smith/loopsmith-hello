@@ -13,13 +13,31 @@
 - **@supabase/supabase-js** — ^2.104.0
 - **Node** — 20.x or later (Next 16 requires Node 20+)
 
+## Layer 1 toolchain — pinned canonical
+
+Added 2026-04-26. Brings the template to STANDARDS Layer 1 template tier (Explore-band).
+
+- **ESLint** — ^9 (flat config in `eslint.config.mjs`)
+- **eslint-config-next** — 16.2.4 (matches Next pin)
+- **eslint-config-prettier** — ^9
+- **typescript-eslint** — ^8
+- **Prettier** — ^3 (config in `.prettierrc`)
+- **Vitest** — ^3 (config in `vitest.config.ts`; node environment)
+- **Husky** — ^9 (pre-commit hook runs lint-staged)
+- **lint-staged** — ^15 (config inline in `package.json`)
+
+Scripts: `lint`, `lint:fix`, `typecheck`, `test`, `test:watch`, `format`, `format:check`, `prepare`.
+
+**Pre-commit gate:** ESLint --fix + Prettier --write on staged `*.{ts,tsx,json,md,css}`. Typecheck deliberately excluded from pre-commit (slower; gates at CI time when CI lands per Layer 4).
+
+**Smoke test:** `src/lib/__tests__/sanity.test.ts` — proves toolchain runs end-to-end. Replace with real tests as features emerge.
+
 ## Opt-in (not pinned — adopt only when a project needs them)
 
 - Server-side Supabase client (`@supabase/ssr`)
 - Supabase auth (email/OAuth flows)
 - Supabase realtime subscriptions
 - Edge functions / server components reading secrets
-- ESLint flat config + `eslint-config-next`
 
 When a downstream project adopts any of these, note it in THAT project's own `STACK.md` as deliberate variation — not in this file.
 
@@ -30,6 +48,9 @@ When a downstream project adopts any of these, note it in THAT project's own `ST
 - **Supabase table: `notes`** — `id uuid pk`, `body text not null`, `created_at timestamptz default now()`. Schema lives in `supabase/migrations/001_notes.sql` so downstream clones can recreate it. CRUD round-trip against this table IS the verification target.
 - **`next/font` not wired** — kept neutral; downstream projects add their own typography.
 - **`.env.local` gitignored; `.env.example` committed** with the Supabase key names (no values). Downstream clones fill in their own project's URL + anon key.
+- **Layer 1 toolchain wired** — ESLint flat config, Prettier, Vitest, Husky, lint-staged are pinned and configured. Downstream clones run `npm install` and pre-commit hooks self-install via the `prepare` script. The smoke test at `src/lib/__tests__/sanity.test.ts` is replace-on-fork, not load-bearing.
+- **`.gitignore` carries `!.env.example` allowlist exception** alongside the `.env*` rule — without the exception, the committed `.env.example` would be silently ignored on clean clones.
+- **`001_notes.sql` RLS policies are permissive (learning-scaffold posture).** Downstream projects MUST tighten before promoting past Explore-band. The migration file carries an unmissable warning header and a commented-out tightening recipe at the bottom.
 
 ## Current Supabase project
 
