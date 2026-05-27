@@ -1,6 +1,6 @@
 # loopsmith-hello
 
-**Living reference project for the `C:\2026_agentic_projects\` code tree.** Every new code project starts from a clone of this one. When the Next.js / Supabase / Tailwind stack moves, it moves here first — downstream projects pull on their own schedule.
+**Living reference project for the `C:\rig\code\` code tree.** Every new code project starts from a clone of this one. When the Next.js / Supabase / Tailwind stack moves, it moves here first — downstream projects pull on their own schedule.
 
 This is not a product. It's a CRUD scaffold whose job is to demonstrate that the current pinned stack actually works end-to-end against a real Supabase instance. Keep it minimal.
 
@@ -31,7 +31,7 @@ Open http://localhost:3000. You should see an empty notes list. Add a note; it s
 
 ## Ports
 
-This project runs on **port 3000** — the template seed in the 3000 range. When you scaffold a new project from this one, pick the next free slot in `C:\2026_agentic_projects\PORTS.md` (current growth rule: +100 per project) and set the port explicitly in `package.json`:
+This project runs on **port 3000** — the template seed in the 3000 range. When you scaffold a new project from this one, pick the next free slot in `C:\rig\code\PORTS.md` (current growth rule: +100 per project) and set the port explicitly in `package.json`:
 
 ```json
 "dev": "next dev -p 3300"

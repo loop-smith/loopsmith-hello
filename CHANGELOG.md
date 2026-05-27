@@ -6,6 +6,24 @@ The ritual at `paved/rituals/verify-hello-world.md` defines when to add an entry
 
 ---
 
+## 2026-04-27 — eslint `scripts/**` ignore (joliepop-site upstream)
+
+**Bumps:** none. Single-line `eslint.config.mjs` ignores tweak.
+
+**What changed:**
+
+- `eslint.config.mjs` ignores list: added `'scripts/**'` after `'coverage/**'`. Allows utility scripts (e.g., password hash generation, db migration helpers, build-time codegen) to use canonical CommonJS `require()` without tripping `@typescript-eslint/no-require-imports`. No-op on hello-world's own surface (no `scripts/` dir present); template inheritance for downstream clones.
+
+**Why:** surfaced during `joliepop-site` autonomous build (CC dispatch-001) when `scripts/hash-password.js` failed lint-staged on first commit — canonical CommonJS `require('bcryptjs')` failed the typescript-eslint rule. The lighter-touch fix is the config tweak; rewriting one-off Node utility scripts as ESM (with `.mjs` or `"type":"module"` games) is heavier and adds friction for a Node-execution context that doesn't need to be lint-governed by the app's TypeScript rules.
+
+**Migration notes (for downstream projects):**
+
+When a downstream project pulls: append `'scripts/**'` to your project's `eslint.config.mjs` ignores list. No other changes required. Lint behavior on `scripts/` files becomes "ignored entirely" — treat scripts as a Node-execution context governed by Node's own conventions, not the app's lint rules. If a project has TypeScript or ESM-strict scripts that SHOULD be linted, scope the ignore by extension instead (e.g., `scripts/**/*.cjs`).
+
+**Verified end-to-end:** 2026-04-27 — joliepop-site clone (built from this hello-world reference + this fix applied) ran lint-clean with `scripts/hash-password.js` present. Original hello-world `npm run lint` confirmed unchanged on hello-world's own surface (no `scripts/` dir; ignore is no-op).
+
+---
+
 ## 2026-04-26 — Layer 1 toolchain hardening
 
 **Bumps:** none on the existing Next/React/TS/Tailwind/Supabase pin block. New dev dependencies pinned canonical.
