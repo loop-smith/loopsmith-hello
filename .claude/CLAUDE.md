@@ -2,7 +2,7 @@
 
 ## Ports
 
-**Registry:** `C:\2026_agentic_projects\PORTS.md` — canonical list of assigned local-dev ports across all active projects on this machine. Check it before starting any port-consuming process; register changes there.
+**Registry:** `C:\rig\code\PORTS.md` — canonical list of assigned local-dev ports across all active projects on this machine. Check it before starting any port-consuming process; register changes there.
 
 **This project runs on port 3000** (`npm run dev`). `loopsmith-hello` is the template seed port in the 3000 range.
 

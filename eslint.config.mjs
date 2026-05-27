@@ -16,6 +16,7 @@ const config = [
       'dist/**',
       'build/**',
       'coverage/**',
+      'scripts/**',
       'next-env.d.ts',
     ],
   },

@@ -1,6 +1,6 @@
 # STACK — loopsmith-hello (living reference)
 
-**This file is the authoritative pin record for the paved path.** Every new code project under `C:\2026_agentic_projects\` starts from a clone of this project at the versions pinned below. When these pins change, `CHANGELOG.md` records why; when the round-trip passes, `Last verified` moves forward. See `C:\Users\Paddo\OneDrive\Desktop\k2s\paved\REGISTRY.md` for the estate view and `C:\Users\Paddo\OneDrive\Desktop\k2s\paved\rituals\verify-hello-world.md` for the quarterly verification ritual.
+**This file is the authoritative pin record for the paved path.** Every new code project under `C:\rig\code\` starts from a clone of this project at the versions pinned below. When these pins change, `CHANGELOG.md` records why; when the round-trip passes, `Last verified` moves forward. See `C:\Users\Paddo\OneDrive\Desktop\k2s\paved\REGISTRY.md` for the estate view and `C:\Users\Paddo\OneDrive\Desktop\k2s\paved\rituals\verify-hello-world.md` for the quarterly verification ritual.
 
 ## Pins
 
